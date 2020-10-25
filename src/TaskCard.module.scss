@@ -1,0 +1,34 @@
+.taskCard, .taskCard * {
+  box-sizing: border-box;
+}
+
+.taskCard {
+  min-width: 48%;
+  padding: 0;
+  margin: .2rem;
+  border: 1px solid rebeccapurple;
+  border-radius: .3rem;
+  box-shadow: .1rem .1rem 3px #bebebe;
+  overflow: hidden;
+}
+
+.cardHeader {
+  background-color: #bebebe;
+  margin: 0;
+  padding: .4rem;
+  padding-bottom: 1px;
+}
+.cardHeader h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.taskCard ul {
+  list-style: none;
+  margin: .4rem;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;  
+}
+
