@@ -20,7 +20,7 @@ class ListForm extends React.Component {
         })
       }}>
         <h2>List Form</h2>
-        <label for="newList">New List Name:</label>
+        <label htmlFor="newList">New List Name:</label>
         <input 
           type="text" 
           name="newList" 
@@ -32,7 +32,7 @@ class ListForm extends React.Component {
           }}
           value={title}
         />
-        <label for="listDesc">Description:</label>
+        <label htmlFor="listDesc">Description:</label>
         <input 
           type="text" 
           name="listDesc" 

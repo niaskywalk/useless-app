@@ -10,72 +10,72 @@ import TaskForm from './TaskForm';
 class App extends React.Component {
   state = {
     lists: [{
-      id: 1,
+      id: "1",
       taskItems: [{
-        id: 1,
+        id: "1",
         text: "Make ice cream",
-        completed: false
+        complete: false
       }, {
-        id: 2,
+        id: "2",
         text: "Buy junk food",
         complete: false
       }, {
-        id: 3,
+        id: "3",
         text: "Go to bed",
         complete: true
       }, {
-        id: 4,
+        id: "4",
         text: "Jump on the bed",
         complete: false
       }],
       title: "Do this Tomorrow",
       description: "Describe this List"
     },{
-      id: 2,
+      id: "2",
       taskItems: [{
-        id: 1,
+        id: "1",
         text: "Make ice cream",
-        completed: false
+        complete: false
       }, {
-        id: 2,
+        id: "2",
         text: "Eat junk food",
         complete: false
       }, {
-        id: 3,
+        id: "3",
         text: "Go to bed",
         complete: true
       }],
       title: "Do this today",
       description: "Describe this List"
     },{
-      id: 3,
+      id: "3",
       taskItems: [{
-        id: 1,
+        id: "1",
         text: "Make ice cream",
-        completed: false
+        complete: false
       }, {
-        id: 2,
+        id: "2",
         text: "Buy junk food",
         complete: false
       }, {
-        id: 3,
+        id: "3",
         text: "Go to bed",
         complete: true
       }],
       title: "Do this today",
       description: "Describe this List"
     },{
-      id: 4,
+      id: "4",
       taskItems: [{
-        id: 1,
+        id: "1",
         text: "Make ice cream",
-        completed: false
+        complete: false
       }, {
-        id: 2,
+        id: "2",
         text: "Buy junk food",
         complete: false
       }, {
-        id: 3,
+        id: "3",
         text: "Go to bed",
         complete: true
       }],
@@ -120,12 +120,16 @@ class App extends React.Component {
     this.setState(newState);
   } 
 
-  addNewList = (listName, listDesc) => {
+  addNewList = (listName, listDesc, initialItem) => {
     listName = listName || "New List";
     listDesc = listDesc || "Description of new list";
     const newList = {
       id: uuid(),
-      taskItems: [],
+      taskItems: initialItem ? [{
+        id: uuid(),
+        text: initialItem,
+        complete: false
+      }] : [],
       title: listName,
       description: listDesc
     };
@@ -158,9 +162,42 @@ class App extends React.Component {
     this.setState(newState);
   }
 
-  addNewTask = () => {}
+  addNewTask = (listID, taskText) => {
+    const {lists} = this.state;
+    listID = listID || (lists[0] && lists[0].id);
+    if (!listID) {
+      this.addNewList(null, null, taskText);
+    } else {
+      const listIndex = lists.findIndex(list => list.id === listID);
+      if (listIndex === -1) {
+        throw new Error(`Cannot find List ID: ${listID} `);
+      }
+      const foundList = lists[listIndex];
+      const newState = {
+        ...this.state,
+        lists: [
+          ...lists.slice(0,listIndex),
+          {
+            ...foundList,
+            taskItems: [
+              ...foundList.taskItems,
+              {
+                id: uuid(),
+                text: taskText,
+                complete: false
+              }
+            ]
+          },
+          ...lists.slice(listIndex+1)
+        ]
+      }
+      this.setState(newState);
+    }
+
+  }
 
   render () {
+    const {lists} = this.state;
     return (
       <div className="appWrapper">
         <AppHeader />
@@ -175,7 +212,7 @@ class App extends React.Component {
           )}
         </main>
         <ListForm onNewList={this.addNewList} />
-        <TaskForm />
+        <TaskForm onNewTask={this.addNewTask} lists={lists} />
       </div>
     );
   }
