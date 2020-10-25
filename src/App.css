@@ -3,11 +3,8 @@
   margin: 1.5rem auto;
 }
 
-
-
 .appTaskWrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-

@@ -1,7 +1,10 @@
 import React from 'react';
+import uuid from 'react-uuid';
 import './App.css';
 import TaskCard from './TaskCard';
 import AppHeader from './AppHeader';
+import ListForm from './ListForm';
+import TaskForm from './TaskForm';
 
 
 class App extends React.Component {
@@ -117,6 +120,46 @@ class App extends React.Component {
     this.setState(newState);
   } 
 
+  addNewList = (listName, listDesc) => {
+    listName = listName || "New List";
+    listDesc = listDesc || "Description of new list";
+    const newList = {
+      id: uuid(),
+      taskItems: [],
+      title: listName,
+      description: listDesc
+    };
+
+    const {lists} = this.state;
+
+    const newState = {
+      ...this.state,
+      lists: [...lists, newList]
+    };
+
+    this.setState(newState);
+
+  }
+
+  removeList = (listID) => {
+    const {lists} = this.state;
+    const listIndex = lists.findIndex(list => list.id === listID);
+    if (listIndex === -1) {
+      throw new Error("Cannot remove list. List not found.");
+    }
+    const newState = {
+      ...this.state,
+      lists: [
+        ...lists.slice(0,listIndex),
+        ...lists.slice(listIndex+1)
+      ]
+    }
+
+    this.setState(newState);
+  }
+
+  addNewTask = () => {}
+
   render () {
     return (
       <div className="appWrapper">
@@ -127,9 +170,12 @@ class App extends React.Component {
               key={list.id}
               toggleTaskItem={this.toggleTaskItem} 
               listData={list}
+              onDelete={this.removeList}
             />
           )}
         </main>
+        <ListForm onNewList={this.addNewList} />
+        <TaskForm />
       </div>
     );
   }

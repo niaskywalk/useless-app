@@ -1,0 +1,32 @@
+.form {
+  width: 100%;
+  border: 1px solid rebeccapurple;
+  border-radius: .3rem;
+  margin-top: 2rem;
+  padding: .8rem;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form label {
+  padding: .3rem 0;
+}
+
+.form input, form textarea {
+  padding: .2rem;
+  margin: .2rem;
+  min-width: 300px;
+}
+
+.form button {
+  height: 3rem;
+  font-size: 1.2rem;
+  margin: .5rem 0 .2rem;
+  box-shadow: .2rem .2rem 3px #888686;
+}

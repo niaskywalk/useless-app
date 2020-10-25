@@ -17,10 +17,25 @@
   margin: 0;
   padding: .4rem;
   padding-bottom: 1px;
+  position: relative;
 }
 .cardHeader h2 {
   margin: 0;
   padding: 0;
+}
+
+.cardHeader span {
+  position: absolute;
+  display: block;
+  top: 5px;
+  right: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.cardHeader span:hover {
+  color: rgb(137, 85, 189);
+  text-shadow: .05rem .05rem 2px grey;
 }
 
 .taskCard ul {
