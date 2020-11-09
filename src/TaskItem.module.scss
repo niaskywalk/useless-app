@@ -18,6 +18,7 @@
 .taskItem {
   @include colorSize;
   width: 87%;
+  text-align: left;
 }
 
 .deleteButton {
