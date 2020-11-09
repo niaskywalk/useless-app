@@ -118,6 +118,36 @@ class App extends React.Component {
       ]
     }
     this.setState(newState);
+  }
+  removeTaskItem = (listID, taskID) => {
+    const {lists} = this.state;
+    const listIndex = lists.findIndex(list => list.id === listID);
+    if (listIndex < 0) {
+      throw new Error("List ID Not Found");
+    };
+    const foundList = lists[listIndex];
+    const taskIndex = foundList.taskItems.findIndex(task => task.id === taskID);
+    if (taskIndex < 0) {
+      throw new Error("Task ID Not Found");
+    }import {addList} from './api';
+
+    const modifiedList = {
+      ...foundList,
+      taskItems: [
+        ...foundList.taskItems.slice(0, taskIndex),
+        ...foundList.taskItems.slice(taskIndex+1)
+      ]
+    };
+
+    const newState = {
+      ...this.state,
+      lists: [
+        ...lists.slice(0, listIndex),
+        modifiedList,
+        ...lists.slice(listIndex+1)
+      ]
+    }
+    this.setState(newState);
   } 
 
   addNewList = (listName, listDesc, initialItem) => {
@@ -207,6 +237,7 @@ class App extends React.Component {
               key={list.id}
               toggleTaskItem={this.toggleTaskItem} 
               listData={list}
+              removeTaskItem={this.removeTaskItem}
               onDelete={this.removeList}
             />
           )}

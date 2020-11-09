@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./TaskCard.module.scss";
 import TaskItem from "./TaskItem";
 
-const TaskCard = ({listData, toggleTaskItem, onDelete}) => {
+const TaskCard = ({listData, toggleTaskItem, removeTaskItem, onDelete}) => {
   return (
     <section className={styles.taskCard}>
       <header className={styles.cardHeader}>
@@ -14,7 +14,10 @@ const TaskCard = ({listData, toggleTaskItem, onDelete}) => {
         {
           listData.taskItems.map(item => 
           <TaskItem 
-            key={item.id} 
+            key={item.id}
+            deleteHandler={(itemID)=> {
+              removeTaskItem(listData.id, itemID)
+            }}
             clickHandler={(itemID)=> {
               toggleTaskItem(listData.id, itemID)
             }}

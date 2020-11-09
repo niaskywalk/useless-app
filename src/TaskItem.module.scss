@@ -1,9 +1,27 @@
-.taskItem {
+@mixin colorSize {
   box-sizing: border-box;
+  background-color: #fff;
   padding: .3rem;
   margin: .2rem 0;
   border: 1px dotted rgb(87, 52, 92);
   border-radius: 5px;
   color: rgb(87, 52, 92);
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: rgba(220, 126, 233, 0.603);
+  }
+}
+
+.taskItem {
+  @include colorSize;
+  width: 87%;
+}
+
+.deleteButton {
+  @include colorSize;
+  width: 10%;
+  height: 100%;
 }
